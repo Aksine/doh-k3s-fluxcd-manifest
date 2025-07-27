@@ -6,4 +6,4 @@ resources:
   - ceph-csi-cephfs
   - csi-driver-smb
   - cloudflared
-  # - cert-manager
+  - cert-manager
