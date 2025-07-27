@@ -3,7 +3,7 @@ kind: Kustomization
 resources:
   - traefik-internal
   - traefik-external
-  # - ceph-csi-cephfs
+  - ceph-csi-cephfs
   # - csi-driver-smb
   # - cloudflared
   # - cert-manager
