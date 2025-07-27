@@ -4,6 +4,6 @@ resources:
   - traefik-internal
   - traefik-external
   - ceph-csi-cephfs
-  # - csi-driver-smb
+  - csi-driver-smb
   # - cloudflared
   # - cert-manager
