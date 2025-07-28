@@ -1,0 +1,9 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: navidrome-charts
+  namespace: flux-system
+spec:
+  interval: 1h
+  timeout: 3m
+  url: https://0xemma.github.io/helm-charts

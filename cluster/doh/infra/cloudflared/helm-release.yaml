@@ -63,7 +63,7 @@ spec:
           service: http://immich-server:2283
 
         - hostname: sangeetham.aksine-am.com
-          service: http://immich-server:2283
+          service: http://navidrome
 
         - hostname: notes.aksine-am.com
           service: http://notes.aksine.lcl
