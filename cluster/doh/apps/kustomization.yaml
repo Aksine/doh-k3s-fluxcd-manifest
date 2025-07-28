@@ -6,5 +6,5 @@ resources:
   - rtmp
   - guac
   - yt-dl
-  #- webdav
+  - webdav
   - qbt
