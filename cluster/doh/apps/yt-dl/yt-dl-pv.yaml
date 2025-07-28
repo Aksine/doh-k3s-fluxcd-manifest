@@ -3,6 +3,7 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: yt-dl-pv
+  namespace: default
 spec:
   capacity:
     storage: 100Gi
