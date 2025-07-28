@@ -2,7 +2,8 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: immich-fanart-pv
+  name: immich-phone-pv
+  namespace: default
 spec:
   capacity:
     storage: 100Gi
@@ -22,9 +23,9 @@ spec:
   csi:
     driver: smb.csi.k8s.io
     readOnly: true
-    volumeHandle: immich-fanart-pv # make sure it's a unique id in the cluster
+    volumeHandle: immich-phone-pv # make sure it's a unique id in the cluster
     volumeAttributes:
-      source: "//nas.aksine.lcl/Share/Images/Artwork"
+      source: "//nas.aksine.lcl/Share/Phone_Sync"
     nodeStageSecretRef:
       name: smb-creds
       namespace: default
