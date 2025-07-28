@@ -7,4 +7,4 @@ resources:
   - csi-driver-smb
   - cloudflared
   - cert-manager
-  #- k8gb
+  - k8gb
