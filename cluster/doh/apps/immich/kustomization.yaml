@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- helm-release.yaml
+- immich-app-pv.yaml
+- immich-app-pvc.yaml
+- immich-fanart-pv.yaml
+- immich-fanart-pvc.yaml
+- immich-lib-pv.yaml
+- immich-lib-pvc.yaml
+- immich-phone-pv.yaml
+- immich-phone-pvc.yaml
+- immich-db-secret.yaml

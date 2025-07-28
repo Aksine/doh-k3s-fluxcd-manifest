@@ -1,0 +1,150 @@
+
+
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: immich
+  namespace: default
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: immich
+      version: 35.4.0
+      sourceRef:
+        kind: HelmRepository
+        name: immich-charts
+        namespace: flux-system
+      interval: 5m
+  install:
+    createNamespace: true
+    crds: CreateReplace
+    remediation:
+      retries: 3
+  upgrade:
+    crds: CreateReplace
+    remediation:
+      retries: 3
+  values:
+    ## This chart relies on the common library chart from bjw-s
+    ## You can find it at https://github.com/bjw-s/helm-charts/tree/main/charts/library/common
+    ## Refer there for more detail about the supported values
+
+    # These entries are shared between all the Immich components
+
+    env:
+      REDIS_HOSTNAME: '{{ printf "%s-redis-master" .Release.Name }}'
+      DB_HOSTNAME: "{{ .Release.Name }}-postgresql"
+      DB_USERNAME: "{{ .Values.postgresql.global.postgresql.auth.username }}"
+      DB_DATABASE_NAME: "{{ .Values.postgresql.global.postgresql.auth.database }}"
+      # -- You should provide your own secret outside of this helm-chart and use `postgresql.global.postgresql.auth.existingSecret` to provide credentials to the postgresql instance
+      DB_PASSWORD:
+        secretKeyRef:
+          name: immich-db-secret
+          key: postgres-password
+      IMMICH_MACHINE_LEARNING_URL: '{{ printf "http://%s-machine-learning:3003" .Release.Name }}'
+      IMMICH_HOST: 0.0.0.0
+    image:
+      tag: v1.124.2
+
+    immich:
+      metrics:
+        # Enabling this will create the service monitors needed to monitor immich with the prometheus operator
+        enabled: false
+      persistence:
+        # Main data store for all photos shared between different components.
+      
+        library:
+          # Automatically creating the library volume is not supported by this chart
+          # You have to specify an existing PVC to use
+          existingClaim: immich-lib-pvc
+      # configuration is immich-config.json converted to yaml
+      # ref: https://immich.app/docs/install/config-file/
+      #
+      configuration: {}
+        # trash:
+        #   enabled: false
+        #   days: 30
+        # storageTemplate:
+        #   enabled: true
+        #   template: "{{y}}/{{y}}-{{MM}}-{{dd}}/{{filename}}"
+
+    # Dependencies
+    useDeprecatedPostgresChart: true 
+    postgresql:
+      enabled: true
+      image:
+        registry: ghcr.io
+        repository: kevinjil/bitnami-postgres-pgvecto-rs
+        tag: pg14.5-v0.2.1
+        # repository: tensorchord/pgvecto-rs
+        # tag: pg14-v0.2.0
+      global:
+        postgresql:
+          auth:
+            username: immich
+            database: immich
+            existingSecret: immich-db-secret
+      primary:
+        persistence:
+          existingClaim: immich-app-pvc
+        initdb:
+          scripts:
+            create-extensions.sql: |
+              CREATE EXTENSION cube;
+              CREATE EXTENSION earthdistance;
+              CREATE EXTENSION vectors;
+        resourcesPreset: "large"
+    redis:
+      enabled: true
+      architecture: standalone
+      auth:
+        enabled: false
+      master:
+        persistence:
+          existingClaim: immich-app-pvc
+
+    # Immich components
+
+    server:
+      enabled: true
+      image:
+        repository: ghcr.io/immich-app/immich-server
+        pullPolicy: IfNotPresent
+      ingress:
+        main:
+          enabled: true
+          annotations:
+            # proxy-body-size is set to 0 to remove the body limit on file uploads
+            nginx.ingress.kubernetes.io/proxy-body-size: "0"
+          hosts:
+            - host: immich.aksine.lcl
+              paths:
+                - path: "/"
+          tls: []
+      persistence:
+        fanart:
+          enabled: true
+          existingClaim: immich-fanart-pvc
+        phone:
+          enabled: true
+          existingClaim: immich-phone-pvc
+
+    machine-learning:
+      enabled: true
+      image:
+        repository: ghcr.io/immich-app/immich-machine-learning
+        pullPolicy: IfNotPresent
+      env:
+        TRANSFORMERS_CACHE: /cache
+      persistence:
+        cache:
+          enabled: true
+          type: pvc
+          existingClaim: immich-app-pvc
+          # Optional: Set this to pvc to avoid downloading the ML models every start.
+
+          # storageClass: your-class
+
+
+
