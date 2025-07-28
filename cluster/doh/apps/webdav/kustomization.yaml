@@ -7,3 +7,4 @@ resources:
   - webdav-smb-pv.yaml
   - webdav-smb-pvc.yaml
   - webdav-secret.yaml
+  - cert-secret.yaml
