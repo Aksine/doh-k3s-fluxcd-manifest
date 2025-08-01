@@ -45,7 +45,7 @@ spec:
       IMMICH_MACHINE_LEARNING_URL: '{{ printf "http://%s-machine-learning:3003" .Release.Name }}'
       IMMICH_HOST: 0.0.0.0
     image:
-      tag: v1.124.2
+      tag: v1.132.0
 
     immich:
       metrics:
@@ -75,8 +75,13 @@ spec:
       enabled: true
       image:
         registry: ghcr.io
-        repository: kevinjil/bitnami-postgres-pgvecto-rs
-        tag: pg14.5-v0.2.1
+        repository: ed-ad/bitnami-postgresql-repmgr-pgvecto-rs
+        tag: pg16.6.0-debian-12-r3_vchord-vector-0.3.0_4
+        ### older tensorchord
+        # registry: ghcr.io
+        # repository: kevinjil/bitnami-postgres-pgvecto-rs
+        # tag: pg14.5-v0.2.1
+        ### oldest tensorchord
         # repository: tensorchord/pgvecto-rs
         # tag: pg14-v0.2.0
       global:
@@ -114,9 +119,6 @@ spec:
       ingress:
         main:
           enabled: true
-          annotations:
-            # proxy-body-size is set to 0 to remove the body limit on file uploads
-            nginx.ingress.kubernetes.io/proxy-body-size: "0"
           hosts:
             - host: immich.aksine.lcl
               paths:
@@ -142,9 +144,7 @@ spec:
           enabled: true
           type: pvc
           existingClaim: immich-app-pvc
-          # Optional: Set this to pvc to avoid downloading the ML models every start.
 
-          # storageClass: your-class
 
 
 
