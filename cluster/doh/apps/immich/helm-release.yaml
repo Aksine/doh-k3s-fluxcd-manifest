@@ -75,8 +75,8 @@ spec:
       enabled: true
       image:
         registry: ghcr.io
-        repository: ed-ad/bitnami-postgresql-repmgr-pgvecto-rs
-        tag: pg16.6.0-debian-12-r3_vchord-vector-0.3.0_4
+        repository: aksine/bitnami-postgresql-pgvecto-rs
+        tag: pg16.6.0_vchord-vector-0.3.0
         ### older tensorchord
         # registry: ghcr.io
         # repository: kevinjil/bitnami-postgres-pgvecto-rs
