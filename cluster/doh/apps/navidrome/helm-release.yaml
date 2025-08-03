@@ -26,9 +26,9 @@ spec:
   values:
     image:
       tag: "0.57.0"
-      envFrom:
-      - secretRef:
-          name: navidrome-secret
+    envFrom:
+    - secretRef:
+        name: navidrome-secret
 
     persistence:
       music:
