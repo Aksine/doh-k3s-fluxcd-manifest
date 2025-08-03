@@ -6,4 +6,4 @@ resources:
 - navidrome-app-pvc.yaml
 - navidrome-lib-pv.yaml
 - navidrome-lib-pvc.yaml
-
+- navidrome-secret.yaml
