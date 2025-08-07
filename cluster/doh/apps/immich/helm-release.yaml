@@ -43,7 +43,7 @@ spec:
           name: immich-db-secret
           key: postgres-password
       #IMMICH_MACHINE_LEARNING_URL: '{{ printf "http://%s-machine-learning:3003" .Release.Name }}'
-      IMMICH_MACHINE_LEARNING_URL: "http://192.168.10.116:3003"
+      IMMICH_MACHINE_LEARNING_URL: "http://10.0.0.116:3003"
       IMMICH_HOST: 0.0.0.0
     image:
       tag: v1.137.3
