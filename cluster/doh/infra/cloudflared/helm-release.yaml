@@ -61,10 +61,15 @@ spec:
 
         - hostname: zhaopian.aksine-am.com
           service: http://immich-server:2283
-
+        
         - hostname: sangeetham.aksine-am.com
           service: http://navidrome:4533
 
+        - hostname: mesaieed.aksine-am.com
+          service: https://code.aksine.lcl
+          originRequest:
+            connectTimeout: 10s
+            noTLSVerify: true
         - hostname: notes.aksine-am.com
           service: http://notes.aksine.lcl
           path: /api/*
