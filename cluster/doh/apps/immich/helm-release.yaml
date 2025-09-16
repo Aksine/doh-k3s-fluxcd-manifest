@@ -46,7 +46,7 @@ spec:
       IMMICH_MACHINE_LEARNING_URL: "http://10.0.0.116:3003"
       IMMICH_HOST: 0.0.0.0
     image:
-      tag: v1.137.3
+      tag: v1.142.0
 
     immich:
       metrics:
