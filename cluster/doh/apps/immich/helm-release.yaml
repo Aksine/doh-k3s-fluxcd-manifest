@@ -106,10 +106,13 @@ spec:
       architecture: standalone
       auth:
         enabled: false
+      image:
+        registry: docker.io
+        repository: bitnamilegacy/redis
+        tag: 7.2.5-debian-12-r0
       master:
         persistence:
           existingClaim: immich-app-pvc
-
     # Immich components
 
     server:
