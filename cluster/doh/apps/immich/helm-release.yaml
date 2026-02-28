@@ -92,6 +92,14 @@ spec:
             database: immich
             existingSecret: immich-db-secret
       primary:
+        resourcesPreset: "none"
+        resources:
+          requests:
+            memory: 512Mi
+            cpu: 250m
+          limits:
+            memory: 2Gi
+            cpu: 1000m
         persistence:
           existingClaim: immich-app-pvc
         initdb:
