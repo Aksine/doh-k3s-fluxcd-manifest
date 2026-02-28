@@ -108,7 +108,6 @@ spec:
               CREATE EXTENSION cube;
               CREATE EXTENSION earthdistance;
               CREATE EXTENSION vectors;
-        resourcesPreset: "large"
     redis:
       enabled: true
       architecture: standalone
