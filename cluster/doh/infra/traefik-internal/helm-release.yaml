@@ -30,11 +30,13 @@ spec:
     #
     # Configure the deployment
     #
-    additionalArguments:
-      - "--entryPoints.websecure.transport.respondingTimeouts.readTimeout=600"
-      - "--entryPoints.websecure.transport.respondingTimeouts.writeTimeout=600"
-      - "--entryPoints.web.transport.respondingTimeouts.readTimeout=600"
-      - "--entryPoints.web.transport.respondingTimeouts.writeTimeout=600"
+  additionalArguments:
+    - "--entryPoints.websecure.transport.respondingTimeouts.readTimeout=600"
+    - "--entryPoints.websecure.transport.respondingTimeouts.writeTimeout=600"
+    - "--entryPoints.web.transport.respondingTimeouts.readTimeout=600"
+    - "--entryPoints.web.transport.respondingTimeouts.writeTimeout=600"
+    - "--entryPoints.websecure.http2.maxConcurrentStreams=0"
+
     deployment:
       # -- Enable deployment
       enabled: true
