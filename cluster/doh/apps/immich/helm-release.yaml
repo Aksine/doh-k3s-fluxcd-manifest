@@ -130,6 +130,8 @@ spec:
       ingress:
         main:
           enabled: true
+          annotations:
+            traefik.ingress.kubernetes.io/router.middlewares: default-immich-uploads@kubernetescrd
           hosts:
             - host: immich.aksine.lcl
               paths:
