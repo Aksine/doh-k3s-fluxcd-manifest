@@ -11,3 +11,4 @@ resources:
 - immich-phone-pv.yaml
 - immich-phone-pvc.yaml
 - immich-db-secret.yaml
+- immich-upload.yaml
