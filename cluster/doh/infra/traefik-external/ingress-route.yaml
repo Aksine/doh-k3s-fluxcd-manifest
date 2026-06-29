@@ -1,15 +1,14 @@
 apiVersion: traefik.io/v1alpha1
-kind: IngressRouteTCP
+kind: IngressRoute
 metadata:
-  name: ingressroute
-  namespace: default 
-  annotations: 
-    kubernetes.io/ingress.class: traefik-ext
+  name: tshikepe-ingressroute
+  namespace: default
 spec:
   entryPoints:
     - websecure
   routes:
-    - match: HostSNI(`tshikepe.aksine-am.com`)
+    - match: Host(`tshikepe.aksine-am.com`)
+      kind: Rule
       services:
         - name: pth-frigate
           port: 8971
