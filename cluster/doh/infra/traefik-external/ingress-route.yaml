@@ -14,4 +14,4 @@ spec:
         - name: pth-frigate
           port: 8971
   tls:
-    secretName: tshikepe-aksine-am-com-tls
+    secretName: aksine-am-com-tls
