@@ -13,5 +13,5 @@ spec:
       services:
         - name: pth-frigate
           port: 8971
-  # tls:
-  #   passthrough: true 
+  tls:
+    secretName: tshikepe-aksine-am-com-tls
