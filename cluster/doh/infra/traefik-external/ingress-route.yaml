@@ -3,6 +3,8 @@ kind: IngressRoute
 metadata:
   name: tshikepe-ingressroute
   namespace: default
+  annotations:
+    kubernetes.io/ingress.class: traefik-ext
 spec:
   entryPoints:
     - websecure
